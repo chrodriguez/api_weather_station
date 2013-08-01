@@ -1,6 +1,6 @@
 require 'bundler'
 
-Bundler.require :default, :debelopment
+Bundler.require :default, :development
 
 require './lib/model/weather_data'
 require './lib/feed/file'
