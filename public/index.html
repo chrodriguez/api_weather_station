@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Test Weather Api</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+  </head>
+  <body>
+    <h1>Weather test Api</h1>
+    <div id="content"></div>
+  </body>
+  <script>
+    var t = null;
+    $.getJSON('http://localhost:9292/last', function (data) {
+      $("#content").html("");
+      $("#content").
+      append("Captured: ").
+      append(moment(data.captured_at).format("DD/MM/YY HH:MM")).
+      append(" | Temp: ").
+      append(data.temperature," C°").
+      append(" | Humidity: ").
+      append(data.humidity," %").
+      append(" | Dew: ").
+      append(data.dew," %").
+      append(" | Bar: ").
+      append(data.bar," Hp");
+    });
+  </script>
+</html>
