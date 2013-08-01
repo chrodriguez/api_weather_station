@@ -1,7 +1,7 @@
 # Weather API
 
-Exposes data imported from Davis Weather Station Vantage Pro 2 Plus, importing
-data from an ascii file downloaded by ftp.
+REST API that exposes data imported from Davis Weather Station Vantage Pro 2 Plus. 
+Imported data is read from an ascii file downloaded by ftp. 
 
 # Install
 
