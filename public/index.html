@@ -19,10 +19,12 @@
       append(data.temperature," C°").
       append(" | Humidity: ").
       append(data.humidity," %").
-      append(" | Dew: ").
-      append(data.dew," %").
       append(" | Bar: ").
-      append(data.bar," Hp");
+      append(data.bar," hPa").
+      append(" | Wind speed: ").
+      append(data.wind_speed, " km/h").
+      append(" | Wind direction: ").
+      append(data.wind_direction);
     });
   </script>
 </html>
