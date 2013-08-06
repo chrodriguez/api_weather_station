@@ -35,7 +35,7 @@ The REST API, is implemented using sinatra, so you can start it using rackup:
 # Sample application
 
 You can try the API using provided html inside `public` folder. Try it
-accessing: `http://localjpst:9292/index.html`
+accessing: `http://localhost:9292/index.html`
 
 ## TODO
 * Add more services 
