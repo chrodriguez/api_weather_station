@@ -1,7 +1,6 @@
 # A sample Gemfile
 source "https://rubygems.org"
 group :development do
-  gem "rake"
   gem "rerun"
 end
 
@@ -13,6 +12,7 @@ end
 
 gem 'puma'
 
+gem "rake"
 gem "sinatra", require: "sinatra/base"
 gem "sinatra-contrib", require: 'sinatra/contrib'
 gem "sinatra-activerecord", require: 'sinatra/activerecord'
