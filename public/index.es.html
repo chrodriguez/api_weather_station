@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Estación Meteorológica Experimental</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+    <style type="text/css">
+      html * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
+      body { font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.4; padding: 0; margin: 0; text-align: center; background: #bdc3c7; }
+      h1 { display: block; font-size: 24px; font-weight: 200; line-height: 1.8; margin: 8px auto 4px; padding: 12px 16px; background: #2c3e50; color: #fff; width: 98.5%; }
+      #content { margin: 0 auto; text-align: center; }
+      .datum { display: inline-block; width: 19%; background: #d35400; color: #fff; margin: 4px; padding: 16px; text-align: left; position: relative; }
+      .datum.expand { width: 98.5%; }
+      .datum.expand .value { text-align: center; }
+      .datum .label { display: block; font-size: 16px; text-shadow: 1px 1px rgba(0, 0, 0, .25); }
+      .datum .value { display: block; font-size: 48px; text-align: right; text-shadow: 2px 2px rgba(0, 0, 0, .15); }
+      /** Colors **/
+      .datum.red    { background-color: #c0392b; color: #fff; }
+      .datum.green  { background-color: #27ae60; color: #fff; }
+      .datum.yellow { background-color: #f1c40f; color: #fff; }
+      .datum.blue   { background-color: #3498db; color: #fff; }
+      .datum.purple { background-color: #9b59b6; color: #fff; }
+      /** Small devices **/
+      @media only screen and (max-width: 640px) {
+        .datum { width: 98.5%; }
+      }
+      /** Medium to large devices **/
+      @media only screen and (min-width: 641px) and (max-width: 1040px) {
+        .datum { width: 48.5%; }
+      }
+      @media only screen and (min-width: 1041px) {
+        .datum:not(.expand) { height: 200px; }
+        .datum:not(.expand) .value { position: absolute; bottom: 16px; right: 16px; }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Estación Meteorológica</h1>
+    <div id="content">
+      <div class="datum expand">
+        <span class="label">Fecha de captura</span>
+        <span class="value date">Sin información para mostrar</span>
+      </div>
+
+      <div class="datum red">
+        <span class="label">Temperatura</span>
+        <span class="value"><span class="temperature">-</span> <span class="unit">&deg;C</span></span>
+      </div>
+
+      <div class="datum green">
+        <span class="label">Humedad</span>
+        <span class="value"><span class="humidity">-</span> <span class="unit">%</span></span>
+      </div>
+
+      <div class="datum yellow">
+        <span class="label">Presión atmosférica</span>
+        <span class="value"><span class="bar">-</span> <span class="unit">hPa</span></span>
+      </div>
+
+      <div class="datum blue">
+        <span class="label">Velocidad del viento</span>
+        <span class="value"><span class="wind-speed">-</span> <span class="unit">km/h</span></span>
+      </div>
+
+      <div class="datum purple">
+        <span class="label">Dirección del viento</span>
+        <span class="value wind-direction">---</span>
+      </div>
+    </div>
+    <script>
+      (function($) {
+        var configuration = { // Change this settings to match your environment/needs
+          host:       'http://localhost:9292',
+          endpoint:   '/last?lang=es',
+          dateFormat: 'DD/MM/YY HH:mm'
+        },
+        $parts = (function($target) {
+          return {
+            date:          $target.find('.date'),
+            temperature:   $target.find('.temperature'),
+            humidity:      $target.find('.humidity'),
+            bar:           $target.find('.bar'),
+            windSpeed:     $target.find('.wind-speed'),
+            windDirection: $target.find('.wind-direction')
+          };
+        }($('#content'))),
+        intervalId;
+
+        function update(config) {
+          $.getJSON(config.host + config.endpoint, function(data) {
+            $parts.date.html(moment(data.captured_at).format(config.dateFormat));
+            $parts.temperature.html(data.temperature);
+            $parts.humidity.html(data.humidity);
+            $parts.bar.html(data.bar);
+            $parts.windSpeed.html(data.wind_speed);
+            $parts.windDirection.html(data.wind_direction);
+          });
+        }
+
+        update(configuration);
+
+        intervalId = setInterval(function() { update(configuration); }, 60000);
+      }(jQuery));
+    </script>
+  </body>
+</html>
