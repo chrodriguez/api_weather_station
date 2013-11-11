@@ -2,13 +2,11 @@
 source "https://rubygems.org"
 group :development do
   gem "rerun"
-end
-
-group :deploy do
   gem 'capistrano'
   gem 'capistrano-rbenv'
   gem 'capistrano-shared_file'
 end
+
 
 gem 'puma'
 
