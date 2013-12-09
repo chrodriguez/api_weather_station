@@ -3,8 +3,9 @@
     <meta charset="utf-8">
     <title>Estación Meteorológica Experimental</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+    
     <style type="text/css">
       html * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
       body { font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.4; padding: 0; margin: 0; text-align: center; background: #bdc3c7; }
@@ -16,10 +17,10 @@
       .datum .label { display: block; font-size: 16px; text-shadow: 1px 1px rgba(0, 0, 0, .25); }
       .datum .value { display: block; font-size: 48px; text-align: right; text-shadow: 2px 2px rgba(0, 0, 0, .15); }
       /** Colors **/
-      .datum.red    { background-color: #c0392b; color: #fff; }
-      .datum.green  { background-color: #27ae60; color: #fff; }
+      .datum.red { background-color: #c0392b; color: #fff; }
+      .datum.green { background-color: #27ae60; color: #fff; }
       .datum.yellow { background-color: #f1c40f; color: #fff; }
-      .datum.blue   { background-color: #3498db; color: #fff; }
+      .datum.blue { background-color: #3498db; color: #fff; }
       .datum.purple { background-color: #9b59b6; color: #fff; }
       /** Small devices **/
       @media only screen and (max-width: 640px) {
@@ -68,40 +69,6 @@
         <span class="value wind-direction">---</span>
       </div>
     </div>
-    <script>
-      (function($) {
-        var configuration = { // Change this settings to match your environment/needs
-          host:       'http://localhost:9292',
-          endpoint:   '/last?lang=es',
-          dateFormat: 'DD/MM/YY HH:mm'
-        },
-        $parts = (function($target) {
-          return {
-            date:          $target.find('.date'),
-            temperature:   $target.find('.temperature'),
-            humidity:      $target.find('.humidity'),
-            bar:           $target.find('.bar'),
-            windSpeed:     $target.find('.wind-speed'),
-            windDirection: $target.find('.wind-direction')
-          };
-        }($('#content'))),
-        intervalId;
-
-        function update(config) {
-          $.getJSON(config.host + config.endpoint, function(data) {
-            $parts.date.html(moment(data.captured_at).format(config.dateFormat));
-            $parts.temperature.html(data.temperature);
-            $parts.humidity.html(data.humidity);
-            $parts.bar.html(data.bar);
-            $parts.windSpeed.html(data.wind_speed);
-            $parts.windDirection.html(data.wind_direction);
-          });
-        }
-
-        update(configuration);
-
-        intervalId = setInterval(function() { update(configuration); }, 60000);
-      }(jQuery));
-    </script>
   </body>
+  <script type="text/javascript" src="js/getData.js"></script>  
 </html>
